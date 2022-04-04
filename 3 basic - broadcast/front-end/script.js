@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const elementRef = (sender) => {
     const div = document.createElement("div");
     if (sender === "Client") {
-      div.className = "p-3 bg-success bg-gradient";
+      div.className = "p-3 mt-2 text-white bg-success bg-gradient";
     } else {
-      div.className = "p-3 bg-danger bg-gradient";
+      div.className = "p-3 mt-2 text-white bg-danger bg-gradient";
     }
 
     return div;
@@ -18,7 +18,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
     messageWindow.appendChild(entryContainer);
   };
 
-  sendButton.addEventListener("click", () => {}, false);
+  sendButton.addEventListener(
+    "click",
+    () => {
+      const data = document.getElementById("inputData").value;
+      ws_server.send(data);
+      createMessageEntry(data, "Client");
+    },
+    false
+  );
 
   ws_server.onopen = () => {
     const data = "Hello Server";
