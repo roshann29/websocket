@@ -1,6 +1,33 @@
-const ws_server = new WebSocket("ws://localhost:2020/webSocket");
+document.addEventListener("DOMContentLoaded", (event) => {
+  const ws_server = new WebSocket("ws://localhost:2020/webSocket");
+  const messageWindow = document.getElementById("messageWindow");
+  const sendButton = document.getElementById("btnPrivate");
+  const elementRef = (sender) => {
+    const div = document.createElement("div");
+    if (sender === "Client") {
+      div.className = "p-3 bg-success bg-gradient";
+    } else {
+      div.className = "p-3 bg-danger bg-gradient";
+    }
 
-// ws_server.send("Hello Server");
-ws_server.onopen = () => {
-  ws_server.send("Hello Server");
-};
+    return div;
+  };
+  const createMessageEntry = (message, sender) => {
+    const entryContainer = elementRef(sender);
+    entryContainer.innerText = `${sender}: ${message}`;
+    messageWindow.appendChild(entryContainer);
+  };
+
+  sendButton.addEventListener("click", () => {}, false);
+
+  ws_server.onopen = () => {
+    const data = "Hello Server";
+    ws_server.send(data);
+    createMessageEntry(data, "Client");
+  };
+
+  ws_server.onmessage = (event) => {
+    const { data } = event;
+    createMessageEntry(data, "Server");
+  };
+});

@@ -9,9 +9,9 @@ const wss = new WebSocketServer(
   }
 );
 
-wss.on("connection", (ws, req) => {
-  ws.send("Hello Client!");
-  ws.on("message", (data, isBinary) => {
-    ws.send(`Hey! I got your message: ${isBinary ? data : data.toString()}`);
+wss.on("connection", (ci, req) => {
+  ci.send("Hello Client!");
+  ci.on("message", (data, isBinary) => {
+    ci.send(`Hey! I got your message: ${isBinary ? data : data.toString()}`);
   });
 });
