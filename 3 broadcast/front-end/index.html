@@ -21,6 +21,50 @@
       crossorigin="anonymous"
     ></script>
     <script src="script.js"></script>
+    <style>
+      .arrow-right,
+      .broadcast,
+      .arrow-left {
+        position: relative;
+      }
+      .arrow-right::after {
+        display: inline-block;
+        content: "";
+        position: absolute;
+        right: -10px;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid #dc3545;
+      }
+
+      .arrow-left::before {
+        display: inline-block;
+        content: "";
+        position: absolute;
+        margin-right: 100p;
+        margin-left: -25px;
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid #198754;
+      }
+
+      .broadcast {
+        background-color: #278da2 !important;
+      }
+      .broadcast::after {
+        display: inline-block;
+        content: "";
+        position: absolute;
+        right: -10px;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid #278da2;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -32,7 +76,7 @@
           class="form-control"
           id="inputMessage"
         />
-        <button type="submit" id="btnPrivate" class="btn btn-primary mb-3 mt-3">
+        <button type="submit" id="btnSend" class="btn btn-primary mb-3 mt-3">
           <i class="bi bi-send"></i> Send
         </button>
         <button
