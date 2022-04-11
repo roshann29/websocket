@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   const ws_server = new WebSocket("ws://localhost:2020/webSocket");
+
   const messageWindow = document.getElementById("messageWindow");
   const sendButton = document.getElementById("btnSend");
   const btnBroadcast = document.getElementById("btnBroadcast");

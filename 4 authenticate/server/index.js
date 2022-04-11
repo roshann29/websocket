@@ -1,13 +1,36 @@
 import { WebSocketServer, WebSocket } from "ws";
+import express from "express";
+import path from "path";
+
+const app = express();
+const __dirname = path.resolve();
+
+app.use("/", express.static(path.resolve(__dirname, "./data")));
+const server = app.listen(2020, () => {
+  console.log(`server started...`);
+});
 
 const wss = new WebSocketServer(
   {
-    port: 2020,
+    noServer: true,
+    // verifyClient: (info) => {
+    // //  console.log(info.req);
+    //   return true;
+    // },
   },
   () => {
-    console.log(`server started`);
+    console.log(`ws server started`);
   }
 );
+
+server.on("upgrade", async function upgrade(request, socket, head) {
+  // socket.write("HTTP/1.1 401 Unauthorized\r\n\r\n");
+  //socket.destroy();
+  // return socket.end("HTTP/1.1 401 Unauthorized\r\n", "ascii");
+  wss.handleUpgrade(request, socket, head, function done(ws) {
+    wss.emit("connection", ws, request);
+  });
+});
 
 wss.on("connection", (ws, req) => {
   ws.send(
