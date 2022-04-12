@@ -12,25 +12,22 @@ const server = app.listen(2020, () => {
 
 const wss = new WebSocketServer(
   {
-    noServer: true,
-    // verifyClient: (info) => {
-    // //  console.log(info.req);
-    //   return true;
-    // },
+    // noServer: true,
+    server,
   },
   () => {
     console.log(`ws server started`);
   }
 );
 
-server.on("upgrade", async function upgrade(request, socket, head) {
-  // socket.write("HTTP/1.1 401 Unauthorized\r\n\r\n");
-  //socket.destroy();
-  // return socket.end("HTTP/1.1 401 Unauthorized\r\n", "ascii");
-  wss.handleUpgrade(request, socket, head, function done(ws) {
-    wss.emit("connection", ws, request);
-  });
-});
+// server.on("upgrade", async function upgrade(request, socket, head) {
+//   // socket.write("HTTP/1.1 401 Unauthorized\r\n\r\n");
+//   //socket.destroy();
+//   // return socket.end("HTTP/1.1 401 Unauthorized\r\n", "ascii");
+//   wss.handleUpgrade(request, socket, head, function done(ws) {
+//     wss.emit("connection", ws, request);
+//   });
+// });
 
 wss.on("connection", (ws, req) => {
   ws.send(
